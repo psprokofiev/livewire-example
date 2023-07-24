@@ -1,0 +1,60 @@
+version: '3.5'
+
+services:
+  app:
+    container_name: livewire-app
+    user: "${USER_ID:-1000}:${GROUP_ID:-1000}"
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    environment:
+      FPM_USER: www
+      FPM_GROUP: www
+    volumes:
+      - .:/var/www
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - app-network
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  nginx:
+    container_name: livewire-nginx
+    image: nginx:latest
+    ports:
+      - ${NGINX_PORT:-8088}:80
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8.0.26
+    platform: linux/amd64
+    container_name: livewire-mysql
+    ports:
+      - ${DB_EXT_PORT:-33061}:3306
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    healthcheck:
+      test: "mysql --user=${DB_USERNAME} --password=${DB_PASSWORD} --execute='select 1;'"
+      interval: 1s
+      timeout: 100s
+      retries: 50
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  dbdata:
