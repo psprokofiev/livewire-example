@@ -16,7 +16,15 @@
             <div class="col-9">
                 {{ $slot }}
             </div>
-            <div class="col-3"></div>
+            <div class="col-3">
+                @livewire('dashboard')
+                @if (session()->has('success'))
+                    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+            </div>
         </div>
     </div>
 </div>

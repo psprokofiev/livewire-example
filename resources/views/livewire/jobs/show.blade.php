@@ -77,6 +77,10 @@
                             <i class="bi bi-pencil-square"></i>
                             <span class="ps-2">Edit</span>
                         </button>
+                        <button type="button" class="btn btn-danger" wire:click="delete">
+                            <i class="bi bi-x-lg"></i>
+                            <span class="ps-2">Delete</span>
+                        </button>
                     </div>
                 </div>
             @endif

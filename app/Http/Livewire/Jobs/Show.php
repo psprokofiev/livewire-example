@@ -45,6 +45,17 @@ class Show extends Component
     public function updatedJob()
     {
         $this->job->save();
+        $this->emitTo('dashboard', 'refresh');
+    }
+
+    public function delete()
+    {
+        $this->job->delete();
+        $this->emitTo('dashboard', 'refresh');
+
+        return redirect()
+            ->route('jobs.index')
+            ->with('success', 'Job deleted');
     }
 
     public function render()

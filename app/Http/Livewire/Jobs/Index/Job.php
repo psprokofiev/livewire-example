@@ -18,6 +18,7 @@ class Job extends Component
     public function updatedJobActive()
     {
         $this->job->save();
+        $this->emitTo('dashboard', 'refresh');
     }
 
     public function render()
