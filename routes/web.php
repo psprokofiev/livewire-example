@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire as Components;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('jobs')
+    ->name('jobs.')
+    ->group(function () {
+        Route::get('/', Components\Jobs\Index::class)->name('index');
+        Route::get('/{job}', Components\Jobs\Show::class)->name('show');
+    });
