@@ -18,6 +18,10 @@
             </div>
             <div class="col-3">
                 @livewire('dashboard')
+                @livewire('dashboard')
+                @livewire('dashboard')
+                @livewire('dashboard')
+                @livewire('dashboard')
                 @if (session()->has('success'))
                     <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
                         {{ session('success') }}

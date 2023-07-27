@@ -1,4 +1,4 @@
-<div class="card" wire:init="load">
+<div class="card mb-3" wire:init="load">
     <div class="card-body position-relative">
         <div class="position-absolute p-3" style="top:0;right:0;">
             <div class="spinner-border text-primary" role="status" wire:loading>

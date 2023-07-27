@@ -31,7 +31,7 @@ class Dashboard extends Component
 
     public function fetch()
     {
-        sleep(1);
+        sleep(random_int(1, 5));
 
         $this->jobs = Job::query()->count();
         $this->active_jobs = Job::query()->where('active', true)->count();
