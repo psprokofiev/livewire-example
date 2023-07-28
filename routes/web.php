@@ -40,3 +40,9 @@ Route::controller(Controllers\JobController::class)
 // Response code
 Route::get('empty-1', fn(): JsonResponse => new JsonResponse(null, 204));                       // bad manners
 Route::get('empty-2', fn(): JsonResponse => new JsonResponse(null, Response::HTTP_NO_CONTENT)); // good
+
+// php artisan config:clear - development mode
+Route::get('config', fn(): string => config('app.name')); // http://localhost:8088/config
+
+// php artisan config:cache - production mode
+Route::get('env', fn(): string => env('APP_NAME')); // http://localhost:8088/env

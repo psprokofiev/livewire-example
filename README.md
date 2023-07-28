@@ -9,3 +9,4 @@
 * Replica / Master config (`config/database.php`)
 * Helpers: IDE Helper, Debugbar
 * Runtime validation exception (`\App\Http\Controllers\JobController::foo`)
+* config() vs env()
